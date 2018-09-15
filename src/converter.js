@@ -20,6 +20,13 @@ const firstCapitalCamelCase = value => {
 
 const mappings = [
   { test: (value, key) => key === 'id', result: () => 'ID!' },
+  {
+    test: (value, key) =>
+      value &&
+      value.toLowerCase &&
+      (value.toLowerCase() === 'true' || value.toLowerCase() === 'false'),
+    result: () => 'Boolean'
+  },
   { test: isInteger, result: () => 'Int' },
   { test: isNumber, result: () => 'Float' },
   { test: isBoolean, result: () => 'Boolean' },
