@@ -97,12 +97,20 @@ class App extends Component {
         <Credits>
           Based on:{' '}
           <Tag>
-            <a href="https://ant.design/" target="_blank">
+            <a
+              href="https://ant.design/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
               Ant-Design
             </a>
           </Tag>
           <Tag>
-            <a href="https://prettier.io" target="_blank">
+            <a
+              href="https://prettier.io"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
               Prettier
             </a>
           </Tag>
