@@ -29,6 +29,21 @@ class App extends Component {
     rootType: null
   };
 
+  componentDidMount() {
+    // Try to initialize from hash
+    if (document.location.hash && document.location.hash.length > 1) {
+      try {
+        const values = JSON.parse(
+          decodeURIComponent(document.location.hash.substr(1))
+        );
+        this.setState({
+          input: values.input || null,
+          rootType: values.rootType || null
+        });
+      } catch (e) {}
+    }
+  }
+
   componentDidUpdate(prevProps, prevState) {
     if (
       this.state.input !== prevState.input ||
