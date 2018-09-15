@@ -60,6 +60,7 @@ class App extends Component {
         }
       );
     } catch (e) {
+      console.log(e);
     } finally {
       this.setState({
         output

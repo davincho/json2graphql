@@ -37,7 +37,7 @@ describe('json to  graphql', () => {
           text: 'Test'
         }
       ],
-      team: {
+      work_team: {
         id: 1,
         name: 'Tourradar',
         count: 5
@@ -51,7 +51,7 @@ describe('json to  graphql', () => {
            id: ID!
            comments: [Comment]
            name: String
-           team: Team
+           workTeam: WorkTeam
          }
 
          type Comment {
@@ -59,7 +59,7 @@ describe('json to  graphql', () => {
            text: String
          }
          
-         type Team {
+         type WorkTeam {
              id: ID!
              count: Int
              name: String

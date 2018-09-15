@@ -1,5 +1,6 @@
 import pluralize from 'pluralize';
 import json5 from 'json5';
+import { camelCase } from 'lodash';
 
 import {
   isNumber,
@@ -11,7 +12,11 @@ import {
   isInteger
 } from 'lodash';
 
-const firstCapital = value => value.charAt(0).toUpperCase() + value.substr(1);
+const firstCapitalCamelCase = value => {
+  const camelVersion = camelCase(value);
+
+  return camelVersion.charAt(0).toUpperCase() + camelVersion.substr(1);
+};
 
 const mappings = [
   { test: (value, key) => key === 'id', result: () => 'ID!' },
@@ -21,11 +26,12 @@ const mappings = [
   { test: isString, result: () => 'String' },
   {
     test: isArray,
-    result: (value, key) => `[${pluralize.singular(firstCapital(key))}]`
+    result: (value, key) =>
+      `[${pluralize.singular(firstCapitalCamelCase(key))}]`
   },
   {
     test: isObject,
-    result: (value, key) => `${pluralize.singular(firstCapital(key))}`
+    result: (value, key) => `${pluralize.singular(firstCapitalCamelCase(key))}`
   }
 ];
 
@@ -44,22 +50,27 @@ export const convertObject = (source, name) => {
       const value = source[row];
       const mapping = find(mappings, mapping => mapping.test(value, row));
 
-      if (isArray(value)) {
+      if (isArray(value) && value.length > 0) {
         subTypes.push(
-          convertObject(value[0], pluralize.singular(firstCapital(row)))
+          convertObject(
+            value[0],
+            pluralize.singular(firstCapitalCamelCase(row))
+          )
         );
       } else if (isObject(value)) {
         subTypes.push(
-          convertObject(value, pluralize.singular(firstCapital(row)))
+          convertObject(value, pluralize.singular(firstCapitalCamelCase(row)))
         );
       }
 
-      return `${row}: ${mapping ? mapping.result(value, row) : 'String'}`;
+      return `${camelCase(row)}: ${
+        mapping ? mapping.result(value, row) : 'String'
+      }`;
     });
 
-  const template = `type ${firstCapital(name)} { ${rows.join(
-    ' '
-  )} } ${subTypes.join(' ')}`;
+  const template = `type ${firstCapitalCamelCase(name)} { ${
+    rows.length === 0 ? 'id: ID!' : rows.join(' ')
+  } } ${subTypes.join(' ')}`;
 
   return template;
 };
