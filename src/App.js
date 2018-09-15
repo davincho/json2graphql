@@ -22,6 +22,14 @@ const Credits = styled('div')({
   margin: 16
 });
 
+const GithubImage = styled('img')({
+  position: 'absolute',
+  top: 0,
+  right: 0,
+  border: 0,
+  zIndex: 2
+});
+
 class App extends Component {
   state = {
     output: null,
@@ -86,6 +94,39 @@ class App extends Component {
   render() {
     return (
       <div>
+        <a
+          href="https://github.com/davincho/json2graphql"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <GithubImage
+            src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"
+            alt="Fork me on GitHub"
+          />
+        </a>
+
+        <Credits>
+          <h1>JSON to GraphQL Schema</h1>
+
+          <Tag>
+            <a
+              href="https://ant.design/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Ant-Design
+            </a>
+          </Tag>
+          <Tag>
+            <a
+              href="https://prettier.io"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Prettier
+            </a>
+          </Tag>
+        </Credits>
         <Container>
           <Input
             placeholder="Root name, default: Root"
@@ -108,28 +149,6 @@ class App extends Component {
             value={this.state.output}
           />
         </Container>
-
-        <Credits>
-          Based on:{' '}
-          <Tag>
-            <a
-              href="https://ant.design/"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              Ant-Design
-            </a>
-          </Tag>
-          <Tag>
-            <a
-              href="https://prettier.io"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              Prettier
-            </a>
-          </Tag>
-        </Credits>
       </div>
     );
   }
